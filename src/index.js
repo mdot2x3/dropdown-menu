@@ -26,6 +26,9 @@ function displayMenu() {
       menu.style.top = `${rect.bottom + window.scrollY}px`;
       menu.style.left = `${rect.right + window.scrollX - menu.offsetWidth}px`;
 
+      // fade in
+      setTimeout(() => menu.classList.add("visible"), 10);
+
       // disable pointer events for everything except menu and button
       body.style.pointerEvents = "none";
       menu.style.pointerEvents = "auto";
@@ -45,7 +48,12 @@ function displayMenu() {
   });
 
   function hideMenu() {
-    menu.classList.add("hidden");
+    menu.classList.remove("visible");
+    // wait for fade-out to finish before hiding completely
+    setTimeout(() => {
+      menu.classList.add("hidden");
+    }, 150);
+
     // re-enable pointer events
     body.style.pointerEvents = "";
     if (activeButton) activeButton.style.pointerEvents = "";
