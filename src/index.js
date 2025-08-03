@@ -22,9 +22,18 @@ function displayMenu() {
       menu.classList.remove("hidden");
       // use to get the clicked button's position on the screen
       const rect = button.getBoundingClientRect();
-      // set menu position according to button location
-      menu.style.top = `${rect.bottom + window.scrollY}px`;
-      menu.style.left = `${rect.right + window.scrollX - menu.offsetWidth}px`;
+      const windowMid = window.innerWidth / 2;
+
+      // decide alignment based on button position
+      if (rect.left < windowMid) {
+        // align menu's top left to button's bottom left
+        menu.style.top = `${rect.bottom + window.scrollY}px`;
+        menu.style.left = `${rect.left + window.scrollX}px`;
+      } else {
+        // align menu's top right to button's bottom right
+        menu.style.top = `${rect.bottom + window.scrollY}px`;
+        menu.style.left = `${rect.right + window.scrollX - menu.offsetWidth}px`;
+      }
 
       // fade in
       setTimeout(() => menu.classList.add("visible"), 10);
